@@ -1,4 +1,5 @@
 # classroom
+# -*- coding: UTF-8 -*-
 def class_scores():
     """
     读取文件为列表，添加总分和平均分
