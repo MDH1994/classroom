@@ -1,3 +1,4 @@
+import os
 import random       #统计
 import requests     #网络请求
 import re           #转义字符
@@ -9,11 +10,18 @@ class guess_maths():
     def creat_name(self):
         play_list = []
         name_list = []
-        with open('play_name.txt','r') as f:
+        new_name_list = [player, 0, 0, 0]
+        with open('play_name.txt','r', encoding='utf-8-sig') as f:
             game_list=f.read().splitlines()
             for line in game_list:
                 ls=line.split()
                 play_list.append(ls)
+            #print(play_list)
+            if len(play_list)!=0:
+                pass
+            else:
+                play_list.append(new_name_list)
+                print('欢迎进入游戏，你是本区域的首位玩家')
             for name_list in play_list:
                 if player in name_list:
                     print('{},你已经玩了{}次，最少{}轮猜出答案，平均{}轮猜对答案，开始游戏'.format(name_list[0],name_list[1],name_list[2],name_list[3]))
@@ -23,8 +31,8 @@ class guess_maths():
                     num = float(name_list[1]) * float(name_list[3])
                     while True:
                         answer=input('请猜一个1-100的数字:')
-                        #if re.match("^(\\d|[1-9]\\d|100)$",answer):
-                        if answer in range(0,101):
+                        if re.match("^(\\d|[1-9]\\d|100)$",answer):
+                        #if answer in range(0,101):
                             print(type(answer),type(number),type(name_list[2]))
                             count+=1
                             answer=int(answer)
@@ -53,12 +61,11 @@ class guess_maths():
                             print('输入有误，请重新输入数字')
                     break  #打破for
                 else:
-                    new_name_list = [player, 0, 0, 0]
                     if new_name_list in play_list:
                         pass
                     else:
                         play_list.append(new_name_list)
-        with open('play_name.txt','w') as f1:
+        with open('play_name.txt','w', encoding='utf-8') as f1:
             for name_list in play_list:
                 for i in name_list:
                     f1.write(str(i)+'\t')
